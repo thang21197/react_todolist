@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 class AddComponet extends Component {
     getTodo = (event) =>{
       var value=event.target.value;
-      var name=  event.target.name;
+      var name= event.target.name;
       this.setState({
-          [name]:value
+          [name]:value,
+          isComplete:false
       });  
     }
-    isAddtodo = () =>{
-        if(this.state.content!==""){
-            this.props.addTodo(this.state.content);
-        }     
+    isAddtodo = (e) =>{
+        this.props.addTodo(this.state);    
+        // if(this.state.content!==null){
+        //     this.props.addTodo(this.state);
+        // }  
     }
     render() {
         return (
@@ -23,7 +25,7 @@ class AddComponet extends Component {
                         <div className="main-todo-input fl-wrap">
                             <div className="main-todo-input-item"> 
                             <input onChange={(e) =>{this.getTodo(e)}} name="content" type="text" id="todo-list-item" placeholder="What will you do today?" /></div> 
-                            <button onClick={() =>{this.isAddtodo()}} className="add-items main-search-button">ADD</button>
+                            <button onClick={(e) =>{this.isAddtodo(e)}} className="add-items main-search-button">ADD</button>
                         </div>
                         </div>
                     </div>

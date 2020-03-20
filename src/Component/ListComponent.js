@@ -11,28 +11,16 @@ class ListComponent extends Component {
         }
     }
     componentWillMount(){
-        //  datafirebase.once("value").then((snapshot)=>{
-        //     var newArray=[];
-        //     snapshot.forEach((snapshotChild)=>{
-        //              var listkey=snapshotChild.key;
-        //              var value=snapshotChild.val();
-        //              newArray.push({
-        //                 key:listkey,
-        //                 value:value
-        //        })
-        //      }) 
-        //      this.setState({
-        //         listTodo:newArray
-        //      });        
-        // });   
         datafirebase.on("value",(snapshot)=>{
             var newArray=[];
-            snapshot.forEach((snapshotChild)=>{
+            snapshot.forEach((snapshotChild)=>{       
                      var listkey=snapshotChild.key;
-                     var value=snapshotChild.val();
+                     var content=snapshotChild.val().content;
+                     var isCompleted=false;
                      newArray.push({
                         key:listkey,
-                        value:value
+                        content:content,
+                        isCompleted:isCompleted
                })
              }) 
              this.setState({
@@ -42,7 +30,7 @@ class ListComponent extends Component {
     }
     showListItem=()=>{
         return this.state.listTodo.map((value)=>{
-            return <ListItemsComponent key={value.key} content={value.value} idItem={value.key}/>      
+            return <ListItemsComponent key={value.key} content={value.content} idItem={value.key} isCompleted={value.isCompleted}/>      
         })
     }
     render() {  
